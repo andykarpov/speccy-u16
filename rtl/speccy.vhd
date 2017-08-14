@@ -598,15 +598,16 @@ end process;
 
 -------------------------------------------------------------------------------	
 -- FF FKeys
-process (clk_bus, key, kb_fkeys, kb_fn, turbo)
+process (clk_bus, key, kb_fkeys, kb_fn, turbo,loader)
 begin
 	if (clk_bus'event and clk_bus = '1') then
 		key <= kb_fkeys;
 		if (kb_fkeys /= key) then kb_fn <= kb_fn xor key; end if;
-		
-		if kb_fkeys(1) = '1' then turbo <= "00"; end if;
-		if kb_fkeys(2) = '1' then turbo <= "01"; end if;
-		if kb_fkeys(3) = '1' then turbo <= "10"; end if;
+		if loader = '1' then turbo <= "10"; else
+			if kb_fkeys(1) = '1' then turbo <= "00"; end if;
+			if kb_fkeys(2) = '1' then turbo <= "01"; end if;
+			if kb_fkeys(3) = '1' then turbo <= "10"; end if;
+		end if;
 	end if;
 end process;
 
@@ -811,8 +812,8 @@ end process;
 -------------------------------------------------------------------------------
 -- Audio
 beeper	<= (others => port_xxfe_reg(4));
-audio_l	<= ("000" & beeper & "00000") + ("000" & ssg0_a & "00000") + ("000" & ssg0_b & "00000") + ("000" & ssg1_a & "00000") + ("000" & ssg1_b & "00000") + ("000" & covox_a & "00000") + ("000" & covox_b & "00000") + ("000" & saa_out_l & "00000");
-audio_r	<= ("000" & beeper & "00000") + ("000" & ssg0_c & "00000") + ("000" & ssg0_b & "00000") + ("000" & ssg1_c & "00000") + ("000" & ssg1_b & "00000") + ("000" & covox_c & "00000") + ("000" & covox_d & "00000") + ("000" & saa_out_r & "00000");
+audio_l	<= (others => '0') when loader='1' else ("000" & beeper & "00000") + ("000" & ssg0_a & "00000") + ("000" & ssg0_b & "00000") + ("000" & ssg1_a & "00000") + ("000" & ssg1_b & "00000") + ("000" & covox_a & "00000") + ("000" & covox_b & "00000") + ("000" & saa_out_l & "00000");
+audio_r	<= (others => '0') when loader='1' else ("000" & beeper & "00000") + ("000" & ssg0_c & "00000") + ("000" & ssg0_b & "00000") + ("000" & ssg1_c & "00000") + ("000" & ssg1_b & "00000") + ("000" & covox_c & "00000") + ("000" & covox_d & "00000") + ("000" & saa_out_r & "00000");
 
 ETH_NCS <= '1'; -- disable Ethernet controller
 

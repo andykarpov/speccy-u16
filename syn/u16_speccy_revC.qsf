@@ -18,7 +18,7 @@
 #
 # Quartus II 32-bit
 # Version 13.1.4 Build 182 03/12/2014 SJ Web Edition
-# Date created = 17:58:09  August 13, 2017
+# Date created = 12:26:48  August 14, 2017
 #
 # -------------------------------------------------------------------------- #
 #
@@ -40,7 +40,7 @@ set_global_assignment -name FAMILY "Cyclone IV E"
 set_global_assignment -name DEVICE EP4CE22E22C8
 set_global_assignment -name TOP_LEVEL_ENTITY speccy
 set_global_assignment -name ORIGINAL_QUARTUS_VERSION 13.1
-set_global_assignment -name PROJECT_CREATION_TIME_DATE "17:58:09  AUGUST 13, 2017"
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "12:26:48  AUGUST 14, 2017"
 set_global_assignment -name LAST_QUARTUS_VERSION 13.1
 #==================CLK===========================
 set_location_assignment PIN_25 -to CLK_50MHZ
